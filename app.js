@@ -17,9 +17,6 @@ const authRouter = require("./route/auth");
 const articlesRouter = require("./route/article");
 
 // route
-app.get("/", (req, res) => {
-  res.send("Test server");
-});
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/articles", authentication, articlesRouter);
 
