@@ -19,6 +19,9 @@ const articlesRouter = require("./route/article");
 // route
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/articles", authentication, articlesRouter);
+app.use("/", (req, res) => {
+  res.send("Test");
+});
 
 // error handler middleware
 app.use(require("./middleware/not-found"));
