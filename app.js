@@ -16,6 +16,9 @@ const connect = require("./db/connect");
 const authRouter = require("./route/auth");
 const articlesRouter = require("./route/article");
 
+app.get("/", (req, res) => {
+  res.send("Test api");
+});
 // route
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/articles", authentication, articlesRouter);
