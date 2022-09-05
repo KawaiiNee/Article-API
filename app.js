@@ -17,15 +17,15 @@ const authRouter = require("./route/auth");
 const articlesRouter = require("./route/article");
 
 // route
+app.get("/", (req, res) => {
+  res.send("Test server");
+});
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/articles", authentication, articlesRouter);
 
 // error handler middleware
 app.use(require("./middleware/not-found"));
 app.use(require("./middleware/custom-error-handler"));
-app.get("/", (req, res) => {
-  res.send("Test server");
-});
 
 async function start() {
   try {
