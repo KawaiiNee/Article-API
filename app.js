@@ -37,17 +37,14 @@ const authRouter = require("./route/auth");
 const articlesRouter = require("./route/article");
 
 // api documentation
-app.get("/", (req, res) => {
-  res.send(`<h1> API Docs </h1><a href="/api-docs">Documentation</a>`);
-});
+// app.get("/", (req, res) => {
+//   res.send(`<h1> API Docs </h1><a href="/api-docs">Documentation</a>`);
+// });
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // route
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/articles", authentication, articlesRouter);
-app.use("/", (req, res) => {
-  res.send("Test");
-});
 
 // error handler middleware
 app.use(require("./middleware/not-found"));
