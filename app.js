@@ -1,9 +1,11 @@
 require("dotenv").config();
 require("express-async-errors");
 
-// express
+// express & connection
 const express = require("express");
 const app = express();
+const PORT = process.env.PORT || 3000;
+const connect = require("./db/connect");
 
 // security packages
 const cors = require("cors");
@@ -25,16 +27,21 @@ app.use(express.json());
 const authentication = require("./middleware/authentication");
 app.use(cors());
 
-const PORT = process.env.PORT || 3000;
-const connect = require("./db/connect");
+// Swagger
+const swaggerUI = require("swagger-ui-express");
+const YAML = require("yamljs");
+const swaggerDocument = YAML.load("./swagger.yaml");
 
 // router
 const authRouter = require("./route/auth");
 const articlesRouter = require("./route/article");
 
+// api documentation
 app.get("/", (req, res) => {
-  res.send("Test api");
+  res.send(`<h1> API Docs </h1><a href="/api-docs">Documentation</a>`);
 });
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+
 // route
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/articles", authentication, articlesRouter);

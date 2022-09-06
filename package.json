@@ -25,7 +25,8 @@
     "marked": "^4.1.0",
     "mongoose": "^6.5.4",
     "multer": "^1.4.5-lts.1",
-    "slugify": "^1.6.5"
+    "slugify": "^1.6.5",
+    "swagger-ui-express": "^4.5.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.19"
