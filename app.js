@@ -37,9 +37,6 @@ const authRouter = require("./route/auth");
 const articlesRouter = require("./route/article");
 
 // api documentation
-app.get("/", (req, res) => {
-  res.send(`<h1> API Docs </h1><a href="/api-docs">Documentation</a>`);
-});
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // route
