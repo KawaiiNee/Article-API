@@ -1,5 +1,6 @@
 require("dotenv").config();
 require("express-async-errors");
+const cors = require("cors");
 
 // express
 const express = require("express");
@@ -8,6 +9,7 @@ const app = express();
 // middleware
 app.use(express.json());
 const authentication = require("./middleware/authentication");
+app.use(cors());
 
 const PORT = process.env.PORT || 3000;
 const connect = require("./db/connect");
