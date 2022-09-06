@@ -1,0 +1,333 @@
+openapi: 3.0.0
+info:
+  title: Article Api
+  contact: {}
+  version: "1.0"
+servers:
+  - url: https://article-api-02.herokuapp.com/api/v1
+    variables: {}
+paths:
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: User Register
+      operationId: UserRegister
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/UserRegisterRequest"
+                - example:
+                    firstName: Lorem
+                    lastName: Ipsum
+                    email: loremipsum@gmail.com
+                    password: password
+            example:
+              firstName: Lorem
+              lastName: Ipsum
+              email: loremipsum@gmail.com
+              password: password
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: User Login
+      operationId: UserLogin
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/UserLoginRequest"
+                - example:
+                    email: johndoe@gmail.com
+                    password: secret
+            example:
+              email: johndoe@gmail.com
+              password: secret
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /articles:
+    post:
+      tags:
+        - Article
+      summary: Create Article
+      operationId: CreateArticle
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/CreateArticleRequest"
+                - example:
+                    title: New Article
+                    description: A description for an article
+                    public: true
+            example:
+              title: New Article
+              description: A description for an article
+              public: true
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    get:
+      tags:
+        - Article
+      summary: Get All Articles
+      operationId: GetAllArticles
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /articles/upload/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The article ID
+    post:
+      tags:
+        - Article
+      summary: File Upload Article
+      operationId: FileUploadArticle
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+                - image
+              type: object
+              properties:
+                image:
+                  type: string
+        required: false
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /articles/view/{slug}:
+    parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+        description: The article slug
+    get:
+      tags:
+        - Article
+      summary: Get Article
+      operationId: GetArticle
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /articles/dashboard:
+    get:
+      tags:
+        - Article
+      summary: User Dashboard
+      operationId: UserDashboard
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /articles/dashboard/{slug}:
+    parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+        description: The article slug
+    get:
+      tags:
+        - Article
+      summary: User Get Article
+      operationId: UserGetArticle
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /articles/dashboard/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The article ID
+    patch:
+      tags:
+        - Article
+      summary: Update Article
+      operationId: UpdateArticle
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/UpdateArticleRequest"
+                - example:
+                    title: New Title
+                    public: false
+                    markdown: "# Test Heading"
+            example:
+              title: New Title
+              public: false
+              markdown: "# Test Heading"
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    delete:
+      tags:
+        - Article
+      summary: Delete Article
+      operationId: DeleteArticle
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+components:
+  schemas:
+    UserRegisterRequest:
+      title: UserRegisterRequest
+      required:
+        - firstName
+        - lastName
+        - email
+        - password
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        firstName: Lorem
+        lastName: Ipsum
+        email: loremipsum@gmail.com
+        password: password
+    UserLoginRequest:
+      title: UserLoginRequest
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: johndoe@gmail.com
+        password: secret
+    CreateArticleRequest:
+      title: CreateArticleRequest
+      required:
+        - title
+        - description
+        - public
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        public:
+          type: boolean
+      example:
+        title: New Article
+        description: A description for an article
+        public: true
+    UpdateArticleRequest:
+      title: UpdateArticleRequest
+      required:
+        - title
+        - public
+        - markdown
+      type: object
+      properties:
+        title:
+          type: string
+        public:
+          type: boolean
+        markdown:
+          type: string
+      example:
+        title: New Title
+        public: false
+        markdown: "# Test Heading"
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+  - name: Auth
+    description: ""
+  - name: Article
+    description: ""
